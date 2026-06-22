@@ -6,20 +6,64 @@
     <title>Form tag</title>
 </head>
 <body>
+    <fieldset>
+    <legend>Enquiry Form</legend>    
     <form action="" method="">
         <h2>Enquiry Form</h2>
         <label>Name</label><br/>
-        <input type="text" placeholder="Enter your name" name="name"/>
+        <input type="text" pattern="[a-zA-Z ]{2,50}" title="Only letters and spaces allowed, 2-100 characters" placeholder="Enter your name" name="name"/>
+        <br/>
+        <lable>gender</label><br/>
+        <input type="radio" name="gender" value="male"/> <label>Male</label>
+        <input type="radio" name="gender" value="female"/> <label>Female</label>
+        <br/>
+        <label>Qualification</label><br/>
+        <input type="checkbox"  value="python"/>python
+        <input type="checkbox"  value="java"/>java
+        <input type="checkbox"  value="c++"/>c++
         <br/>
         <label>Email</label><br/>
         <input type="email" placeholder="Enter your email" name="email"/>
         <br/>
         <label>Phone</label><br/>   
-        <input type="tel" placeholder="Enter your phone number" name="phone"/>
+        <input type="tel" pattern="[0-9]{10}" title="10-digit phone number" placeholder="Enter your phone number" name="phone"/>
         <br/>
+        <label>Message</label><br/>
+        <textarea placeholder="Enter your message" name="message"></textarea>
+        <br/>
+        <label>photo</label><br/>
+        <input type="file" name="photo"/>
+        <br/>
+        <label>password</label><br/>
+        <input type="password" placeholder="Enter your password" name="password"/>
+        <br/>
+        <label>country</label>
+        <select name="country">
+            <option value="select country">Select</option>
+            <option value="india">India</option>
+            <option value="usa">USA</option>
+            <option value="uk">UK</option>
+        </select>
+        <br/>
+        <label>Course</label><br/>
+        <select>
+            <optgroup label="frontend">
+                <option value="HTML">HTML</option>
+                <option value="java Script">JavaScript</option>
+                <option value="CSS">CSS</option>
+            </optgroup>
+            <optgroup label="backend">
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="c++">C++</option>
+            </optgroup>
+        </sellect>
+        </br>
         <button type="submit">save</button>  
         <input type="submit" value="go"/>
+        <br/>
         
     </form>
+    </fieldset>
 </body>
 </html>

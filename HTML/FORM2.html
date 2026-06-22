@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>Form tag</title>                             
+</head>
+<body>
+    <fieldset>
+    <legend>html 5 form input</legend>    
+    <form>
+        name</br>
+        <input type="text" pattern="[a-zA-Z ]{2,50}">
+    </br>   
+        Qty</br>
+        <input type="number" min="1" max="10"/>
+    </br>
+        date</br>
+        <input type="date" min="2024-01-01" max="2024-12-31"/>
+    </br>
+        time</br>
+        <input type="time" min="09:00" max="18:00"/>
+    </br>
+        week</br>
+        <input type="week" min="2024-W01" max="2024-W52"/>
+    </br>
+        month</br>
+        <input type="month" min="2024-01" max="2024-12"/>
+    </br>       
+        COLOR</br>
+        <input type="color"/>   
+    </br>
+        URL</br>
+        <input type="url" placeholder="Enter your website URL"/>   
+    </br>
+        range</br>
+        <input type="range" min="0" max="100" step="10"/>   
+    </br>
+        <input type="browser" list="browsers" placeholder="Enter your browser"/>
+        <datalist id="browsers">
+            <option value="Chrome">
+            <option value="Firefox">
+            <option value="Safari">
+            <option value="Edge">
+            <option value="Opera">
+        </datalist>
+    </br>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </br>
+    </form>
+
+</html>
