@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Complete Notes – Basic to Advanced</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap');
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --card:      #1c2330;
+      --border:    #30363d;
+      --accent:    #f78166;
+      --accent2:   #79c0ff;
+      --accent3:   #56d364;
+      --muted:     #8b949e;
+      --text:      #e6edf3;
+      --tag-bg:    #21262d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 60%, #0d1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 32px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '</>';
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 220px;
+      color: rgba(247,129,102,0.04);
+      top: -20px; right: -20px;
+      pointer-events: none;
+    }
+    header h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .badge-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 20px;
+    }
+    .badge {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      color: var(--accent2);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+    .toc h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 4px 0; }
+    .toc a { color: var(--accent2); text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { text-decoration: underline; }
+
+    /* ── SECTION ── */
+    section { margin-bottom: 56px; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    section h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 24px;
+    }
+    section h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent2);
+      margin: 28px 0 8px;
+    }
+    p { margin-bottom: 12px; color: #cdd9e5; }
+
+    /* ── DEF BOX ── */
+    .def {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent3);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 12px 0 16px;
+      font-size: 0.9rem;
+      color: #b0c4de;
+    }
+    .def strong { color: var(--accent3); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+    /* ── CODE BLOCK ── */
+    .code-wrap {
+      background: #010409;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+    }
+    .code-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #febc2e; }
+    .dot.g { background: #28c840; }
+    .code-lang {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    pre {
+      padding: 20px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
+    .kw  { color: #ff7b72; }   /* keyword / tag */
+    .at  { color: #79c0ff; }   /* attribute */
+    .st  { color: #a5d6ff; }   /* string */
+    .cm  { color: #8b949e; font-style: italic; } /* comment */
+    .tx  { color: #e6edf3; }   /* plain text */
+    .val { color: #56d364; }   /* value / content */
+
+    /* ── OUTPUT PREVIEW ── */
+    .preview {
+      background: #fff;
+      color: #111;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: -8px 0 24px;
+      font-family: serif;
+      font-size: 14px;
+    }
+    .preview-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    /* ── ATTR TABLE ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 0.88rem;
+    }
+    th {
+      background: var(--surface);
+      color: var(--accent2);
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    td {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      color: #cdd9e5;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    td code, p code {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em;
+      color: var(--accent);
+    }
+
+    /* ── TIPS ── */
+    .tip {
+      background: rgba(121,192,255,0.06);
+      border: 1px solid rgba(121,192,255,0.2);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 0.88rem;
+      color: #b0c4de;
+    }
+    .tip::before { content: '💡 '; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>HTML Complete Notes</h1>
+  <p>Basic to Advanced · With Definitions &amp; Examples</p>
+  <div class="badge-row">
+    <span class="badge">HTML5</span>
+    <span class="badge">Semantic</span>
+    <span class="badge">Forms</span>
+    <span class="badge">Tables</span>
+    <span class="badge">Media</span>
+    <span class="badge">SEO</span>
+    <span class="badge">Accessibility</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#s1">What is HTML?</a></li>
+      <li><a href="#s2">HTML Document Structure</a></li>
+      <li><a href="#s3">Headings &amp; Paragraphs</a></li>
+      <li><a href="#s4">Text Formatting Tags</a></li>
+      <li><a href="#s5">Links (Anchor Tags)</a></li>
+      <li><a href="#s6">Images</a></li>
+      <li><a href="#s7">Lists</a></li>
+      <li><a href="#s8">Tables</a></li>
+      <li><a href="#s9">Forms &amp; Inputs</a></li>
+      <li><a href="#s10">Semantic HTML5 Elements</a></li>
+      <li><a href="#s11">Div &amp; Span</a></li>
+      <li><a href="#s12">Media – Audio &amp; Video</a></li>
+      <li><a href="#s13">iFrame</a></li>
+      <li><a href="#s14">HTML Attributes (Global)</a></li>
+      <li><a href="#s15">Meta Tags &amp; SEO</a></li>
+      <li><a href="#s16">HTML Entities &amp; Symbols</a></li>
+      <li><a href="#s17">Advanced: Data Attributes</a></li>
+      <li><a href="#s18">Advanced: Accessibility (ARIA)</a></li>
+      <li><a href="#s19">Advanced: Canvas</a></li>
+      <li><a href="#s20">Advanced: HTML APIs Overview</a></li>
+    </ol>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 1. WHAT IS HTML                                        -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s1">
+    <div class="section-label">Section 01 · Basics</div>
+    <h2>1. What is HTML?</h2>
+    <div class="def">
+      <strong>Definition:</strong> HTML (HyperText Markup Language) is the standard language used to create and structure content on the web. It uses <em>tags</em> (enclosed in angle brackets) to tell browsers how to display text, images, links, and other elements.
+    </div>
+    <p>HTML is <strong>not</strong> a programming language — it is a <em>markup language</em>. HTML5 is the current version and adds semantic elements, multimedia support, and APIs.</p>
+
+    <h3>Key Terms</h3>
+    <table>
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td><code>Tag</code></td><td>An HTML keyword in angle brackets, e.g. <code>&lt;p&gt;</code></td></tr>
+      <tr><td><code>Element</code></td><td>Opening tag + content + closing tag: <code>&lt;p&gt;Hello&lt;/p&gt;</code></td></tr>
+      <tr><td><code>Attribute</code></td><td>Extra info inside the opening tag: <code>&lt;a href="..."&gt;</code></td></tr>
+      <tr><td><code>Void / Self-closing</code></td><td>Tags with no closing tag: <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code></td></tr>
+      <tr><td><code>Nesting</code></td><td>Placing one element inside another</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 2. DOCUMENT STRUCTURE                                  -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s2">
+    <div class="section-label">Section 02 · Basics</div>
+    <h2>2. HTML Document Structure</h2>
+    <div class="def">
+      <strong>Definition:</strong> Every HTML file must follow a standard skeleton so the browser knows how to parse and render it correctly.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- Document type declaration --&gt;</span>
+<span class="kw">&lt;!DOCTYPE html&gt;</span>
+<span class="kw">&lt;html</span> <span class="at">lang</span>=<span class="st">"en"</span><span class="kw">&gt;</span>
+
+  <span class="kw">&lt;head&gt;</span>
+    <span class="cm">&lt;!-- Meta info — not displayed on page --&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="at">charset</span>=<span class="st">"UTF-8"</span> <span class="kw">/&gt;</span>
+    <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"viewport"</span> <span class="at">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span> <span class="kw">/&gt;</span>
+    <span class="kw">&lt;title&gt;</span><span class="val">My First Page</span><span class="kw">&lt;/title&gt;</span>
+    <span class="kw">&lt;link</span> <span class="at">rel</span>=<span class="st">"stylesheet"</span> <span class="at">href</span>=<span class="st">"style.css"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;/head&gt;</span>
+
+  <span class="kw">&lt;body&gt;</span>
+    <span class="cm">&lt;!-- All visible content goes here --&gt;</span>
+    <span class="kw">&lt;h1&gt;</span><span class="val">Hello, World!</span><span class="kw">&lt;/h1&gt;</span>
+    <span class="kw">&lt;p&gt;</span><span class="val">Welcome to my page.</span><span class="kw">&lt;/p&gt;</span>
+  <span class="kw">&lt;/body&gt;</span>
+
+<span class="kw">&lt;/html&gt;</span></pre>
+    </div>
+
+    <table>
+      <tr><th>Tag</th><th>Purpose</th></tr>
+      <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Declares HTML5 mode — always first line</td></tr>
+      <tr><td><code>&lt;html&gt;</code></td><td>Root element; wrap everything inside</td></tr>
+      <tr><td><code>&lt;head&gt;</code></td><td>Metadata: title, charset, links — not rendered</td></tr>
+      <tr><td><code>&lt;title&gt;</code></td><td>Text shown in browser tab</td></tr>
+      <tr><td><code>&lt;body&gt;</code></td><td>All visible page content</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 3. HEADINGS & PARAGRAPHS                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s3">
+    <div class="section-label">Section 03 · Basics</div>
+    <h2>3. Headings &amp; Paragraphs</h2>
+    <div class="def">
+      <strong>Heading:</strong> Tags <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> define section titles in descending importance. <code>&lt;h1&gt;</code> is the most important (one per page for SEO).<br><br>
+      <strong>Paragraph:</strong> <code>&lt;p&gt;</code> groups a block of text. Browsers add margin above and below automatically.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="kw">&lt;h1&gt;</span><span class="val">Main Title</span><span class="kw">&lt;/h1&gt;</span>
+<span class="kw">&lt;h2&gt;</span><span class="val">Section Heading</span><span class="kw">&lt;/h2&gt;</span>
+<span class="kw">&lt;h3&gt;</span><span class="val">Sub-section</span><span class="kw">&lt;/h3&gt;</span>
+<span class="kw">&lt;h4&gt;</span><span class="val">Level 4</span><span class="kw">&lt;/h4&gt;</span>
+<span class="kw">&lt;h5&gt;</span><span class="val">Level 5</span><span class="kw">&lt;/h5&gt;</span>
+<span class="kw">&lt;h6&gt;</span><span class="val">Level 6 (smallest)</span><span class="kw">&lt;/h6&gt;</span>
+
+<span class="kw">&lt;p&gt;</span><span class="val">This is a paragraph of text.</span><span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;br&gt;</span>  <span class="cm">&lt;!-- Line break (void element) --&gt;</span>
+<span class="kw">&lt;hr&gt;</span>  <span class="cm">&lt;!-- Horizontal rule / divider --&gt;</span></pre>
+    </div>
+
+    <div class="preview-label">Browser Output</div>
+    <div class="preview" style="font-family:sans-serif;">
+      <h1 style="font-size:2em;margin:0 0 4px">Main Title</h1>
+      <h2 style="font-size:1.5em;margin:0 0 4px">Section Heading</h2>
+      <h3 style="font-size:1.17em;margin:0 0 4px">Sub-section</h3>
+      <p style="margin:8px 0">This is a paragraph of text.</p>
+      <hr style="margin:8px 0">
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 4. TEXT FORMATTING                                     -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s4">
+    <div class="section-label">Section 04 · Basics</div>
+    <h2>4. Text Formatting Tags</h2>
+
+    <table>
+      <tr><th>Tag</th><th>Definition</th><th>Example Output</th></tr>
+      <tr><td><code>&lt;b&gt;</code></td><td>Bold — stylistic only</td><td><b>Bold text</b></td></tr>
+      <tr><td><code>&lt;strong&gt;</code></td><td>Important/bold — semantic</td><td><strong>Important!</strong></td></tr>
+      <tr><td><code>&lt;i&gt;</code></td><td>Italic — stylistic</td><td><i>Italic text</i></td></tr>
+      <tr><td><code>&lt;em&gt;</code></td><td>Emphasis/italic — semantic</td><td><em>Emphasized</em></td></tr>
+      <tr><td><code>&lt;u&gt;</code></td><td>Underline</td><td><u>Underlined</u></td></tr>
+      <tr><td><code>&lt;s&gt;</code></td><td>Strikethrough</td><td><s>Deleted</s></td></tr>
+      <tr><td><code>&lt;mark&gt;</code></td><td>Highlighted text</td><td><mark>Highlighted</mark></td></tr>
+      <tr><td><code>&lt;small&gt;</code></td><td>Smaller font size</td><td><small>Small text</small></td></tr>
+      <tr><td><code>&lt;sup&gt;</code></td><td>Superscript</td><td>x<sup>2</sup></td></tr>
+      <tr><td><code>&lt;sub&gt;</code></td><td>Subscript</td><td>H<sub>2</sub>O</td></tr>
+      <tr><td><code>&lt;code&gt;</code></td><td>Inline code</td><td><code>console.log()</code></td></tr>
+      <tr><td><code>&lt;pre&gt;</code></td><td>Preformatted text (preserves whitespace)</td><td>Monospace block</td></tr>
+      <tr><td><code>&lt;blockquote&gt;</code></td><td>Long quotation</td><td>Indented block</td></tr>
+      <tr><td><code>&lt;abbr&gt;</code></td><td>Abbreviation with tooltip</td><td><abbr title="HyperText Markup Language">HTML</abbr></td></tr>
+    </table>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="kw">&lt;p&gt;</span><span class="val">Water formula: H</span><span class="kw">&lt;sub&gt;</span><span class="val">2</span><span class="kw">&lt;/sub&gt;</span><span class="val">O &amp; x</span><span class="kw">&lt;sup&gt;</span><span class="val">2</span><span class="kw">&lt;/sup&gt;&lt;/p&gt;</span>
+
+<span class="kw">&lt;p&gt;</span><span class="val">Use </span><span class="kw">&lt;mark&gt;</span><span class="val">highlight</span><span class="kw">&lt;/mark&gt;</span><span class="val"> to emphasize text.</span><span class="kw">&lt;/p&gt;</span>
+
+<span class="kw">&lt;abbr</span> <span class="at">title</span>=<span class="st">"HyperText Markup Language"</span><span class="kw">&gt;</span><span class="val">HTML</span><span class="kw">&lt;/abbr&gt;</span>
+
+<span class="kw">&lt;blockquote</span> <span class="at">cite</span>=<span class="st">"https://example.com"</span><span class="kw">&gt;</span>
+  <span class="val">The Web is for everyone. — Tim Berners-Lee</span>
+<span class="kw">&lt;/blockquote&gt;</span>
+
+<span class="kw">&lt;pre&gt;</span>
+  <span class="val">function hello() {
+    return "world";
+  }</span>
+<span class="kw">&lt;/pre&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 5. LINKS                                               -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s5">
+    <div class="section-label">Section 05 · Basics</div>
+    <h2>5. Links (Anchor Tags)</h2>
+    <div class="def">
+      <strong>Definition:</strong> The <code>&lt;a&gt;</code> (anchor) tag creates hyperlinks to other pages, files, locations on the same page, or email addresses. The <code>href</code> attribute specifies the destination.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- External link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"https://www.google.com"</span> <span class="at">target</span>=<span class="st">"_blank"</span> <span class="at">rel</span>=<span class="st">"noopener"</span><span class="kw">&gt;</span>
+  <span class="val">Visit Google</span>
+<span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Internal link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"about.html"</span><span class="kw">&gt;</span><span class="val">About Page</span><span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Anchor link (jump to section) --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"#section2"</span><span class="kw">&gt;</span><span class="val">Go to Section 2</span><span class="kw">&lt;/a&gt;</span>
+<span class="kw">&lt;h2</span> <span class="at">id</span>=<span class="st">"section2"</span><span class="kw">&gt;</span><span class="val">Section 2</span><span class="kw">&lt;/h2&gt;</span>
+
+<span class="cm">&lt;!-- Email link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"mailto:hello@example.com"</span><span class="kw">&gt;</span><span class="val">Email Us</span><span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Phone link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"tel:+911234567890"</span><span class="kw">&gt;</span><span class="val">Call Us</span><span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Download link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"file.pdf"</span> <span class="at">download</span><span class="kw">&gt;</span><span class="val">Download PDF</span><span class="kw">&lt;/a&gt;</span></pre>
+    </div>
+
+    <table>
+      <tr><th>Attribute</th><th>Value</th><th>Meaning</th></tr>
+      <tr><td><code>href</code></td><td>URL / path / #id</td><td>Destination of the link</td></tr>
+      <tr><td><code>target</code></td><td><code>_blank</code> / <code>_self</code></td><td>Where to open: new tab or same tab</td></tr>
+      <tr><td><code>rel</code></td><td><code>noopener noreferrer</code></td><td>Security for external <code>_blank</code> links</td></tr>
+      <tr><td><code>download</code></td><td>boolean / filename</td><td>Forces file download instead of navigation</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 6. IMAGES                                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s6">
+    <div class="section-label">Section 06 · Basics</div>
+    <h2>6. Images</h2>
+    <div class="def">
+      <strong>Definition:</strong> The <code>&lt;img&gt;</code> tag embeds an image. It is a <em>void element</em> (no closing tag). The <code>src</code> attribute is required; <code>alt</code> is required for accessibility.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- Basic image --&gt;</span>
+<span class="kw">&lt;img</span> <span class="at">src</span>=<span class="st">"photo.jpg"</span> <span class="at">alt</span>=<span class="st">"A scenic mountain view"</span> <span class="kw">/&gt;</span>
+
+<span class="cm">&lt;!-- With size --&gt;</span>
+<span class="kw">&lt;img</span> <span class="at">src</span>=<span class="st">"logo.png"</span> <span class="at">alt</span>=<span class="st">"Company Logo"</span>
+     <span class="at">width</span>=<span class="st">"200"</span> <span class="at">height</span>=<span class="st">"100"</span> <span class="kw">/&gt;</span>
+
+<span class="cm">&lt;!-- Responsive image --&gt;</span>
+<span class="kw">&lt;img</span> <span class="at">src</span>=<span class="st">"hero.jpg"</span> <span class="at">alt</span>=<span class="st">"Hero banner"</span>
+     <span class="at">style</span>=<span class="st">"max-width:100%; height:auto;"</span> <span class="kw">/&gt;</span>
+
+<span class="cm">&lt;!-- Image as link --&gt;</span>
+<span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"https://example.com"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;img</span> <span class="at">src</span>=<span class="st">"banner.png"</span> <span class="at">alt</span>=<span class="st">"Click here"</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Figure with caption --&gt;</span>
+<span class="kw">&lt;figure&gt;</span>
+  <span class="kw">&lt;img</span> <span class="at">src</span>=<span class="st">"chart.png"</span> <span class="at">alt</span>=<span class="st">"Sales chart 2024"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;figcaption&gt;</span><span class="val">Figure 1: Annual Sales Data</span><span class="kw">&lt;/figcaption&gt;</span>
+<span class="kw">&lt;/figure&gt;</span>
+
+<span class="cm">&lt;!-- Lazy loading --&gt;</span>
+<span class="kw">&lt;img</span> <span class="at">src</span>=<span class="st">"big-image.jpg"</span> <span class="at">alt</span>=<span class="st">"..."</span> <span class="at">loading</span>=<span class="st">"lazy"</span> <span class="kw">/&gt;</span></pre>
+    </div>
+    <div class="tip">Always provide a meaningful <code>alt</code> attribute — it improves accessibility and SEO. Use <code>alt=""</code> for decorative images.</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 7. LISTS                                               -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s7">
+    <div class="section-label">Section 07 · Basics</div>
+    <h2>7. Lists</h2>
+    <div class="def">
+      <strong>Unordered List (<code>&lt;ul&gt;</code>):</strong> Bulleted list — order doesn't matter.<br>
+      <strong>Ordered List (<code>&lt;ol&gt;</code>):</strong> Numbered list — order matters.<br>
+      <strong>Description List (<code>&lt;dl&gt;</code>):</strong> Term–description pairs (like a glossary).
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- Unordered --&gt;</span>
+<span class="kw">&lt;ul&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">HTML</span><span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">CSS</span><span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">JavaScript</span><span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Ordered --&gt;</span>
+<span class="kw">&lt;ol</span> <span class="at">type</span>=<span class="st">"1"</span> <span class="at">start</span>=<span class="st">"1"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">Boil water</span><span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">Add pasta</span><span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">Drain and serve</span><span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ol&gt;</span>
+
+<span class="cm">&lt;!-- Nested list --&gt;</span>
+<span class="kw">&lt;ul&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">Frontend</span>
+    <span class="kw">&lt;ul&gt;</span>
+      <span class="kw">&lt;li&gt;</span><span class="val">HTML</span><span class="kw">&lt;/li&gt;</span>
+      <span class="kw">&lt;li&gt;</span><span class="val">CSS</span><span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span>
+  <span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">Backend</span><span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Description list --&gt;</span>
+<span class="kw">&lt;dl&gt;</span>
+  <span class="kw">&lt;dt&gt;</span><span class="val">HTML</span><span class="kw">&lt;/dt&gt;</span>
+  <span class="kw">&lt;dd&gt;</span><span class="val">HyperText Markup Language</span><span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;dt&gt;</span><span class="val">CSS</span><span class="kw">&lt;/dt&gt;</span>
+  <span class="kw">&lt;dd&gt;</span><span class="val">Cascading Style Sheets</span><span class="kw">&lt;/dd&gt;</span>
+<span class="kw">&lt;/dl&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 8. TABLES                                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s8">
+    <div class="section-label">Section 08 · Intermediate</div>
+    <h2>8. Tables</h2>
+    <div class="def">
+      <strong>Definition:</strong> HTML tables display data in rows and columns. Use them for <em>tabular data</em> only — not for page layout (use CSS Flexbox/Grid instead).
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="kw">&lt;table</span> <span class="at">border</span>=<span class="st">"1"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;caption&gt;</span><span class="val">Student Scores</span><span class="kw">&lt;/caption&gt;</span>
+
+  <span class="kw">&lt;thead&gt;</span>
+    <span class="kw">&lt;tr&gt;</span>
+      <span class="kw">&lt;th&gt;</span><span class="val">Name</span><span class="kw">&lt;/th&gt;</span>
+      <span class="kw">&lt;th&gt;</span><span class="val">Math</span><span class="kw">&lt;/th&gt;</span>
+      <span class="kw">&lt;th&gt;</span><span class="val">Science</span><span class="kw">&lt;/th&gt;</span>
+    <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;/thead&gt;</span>
+
+  <span class="kw">&lt;tbody&gt;</span>
+    <span class="kw">&lt;tr&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">Ravi</span><span class="kw">&lt;/td&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">90</span><span class="kw">&lt;/td&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">85</span><span class="kw">&lt;/td&gt;</span>
+    <span class="kw">&lt;/tr&gt;</span>
+    <span class="kw">&lt;tr&gt;</span>
+      <span class="kw">&lt;td</span> <span class="at">colspan</span>=<span class="st">"2"</span><span class="kw">&gt;</span><span class="val">Merged Cell</span><span class="kw">&lt;/td&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">70</span><span class="kw">&lt;/td&gt;</span>
+    <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;/tbody&gt;</span>
+
+  <span class="kw">&lt;tfoot&gt;</span>
+    <span class="kw">&lt;tr&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">Average</span><span class="kw">&lt;/td&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">90</span><span class="kw">&lt;/td&gt;</span>
+      <span class="kw">&lt;td&gt;</span><span class="val">78</span><span class="kw">&lt;/td&gt;</span>
+    <span class="kw">&lt;/tr&gt;</span>
+  <span class="kw">&lt;/tfoot&gt;</span>
+<span class="kw">&lt;/table&gt;</span></pre>
+    </div>
+
+    <table>
+      <tr><th>Tag</th><th>Meaning</th></tr>
+      <tr><td><code>&lt;table&gt;</code></td><td>Container for the entire table</td></tr>
+      <tr><td><code>&lt;thead&gt;</code></td><td>Header row group</td></tr>
+      <tr><td><code>&lt;tbody&gt;</code></td><td>Body/data row group</td></tr>
+      <tr><td><code>&lt;tfoot&gt;</code></td><td>Footer row group (totals, etc.)</td></tr>
+      <tr><td><code>&lt;tr&gt;</code></td><td>Table Row</td></tr>
+      <tr><td><code>&lt;th&gt;</code></td><td>Table Header cell (bold, centered)</td></tr>
+      <tr><td><code>&lt;td&gt;</code></td><td>Table Data cell</td></tr>
+      <tr><td><code>colspan</code></td><td>Merge cells horizontally</td></tr>
+      <tr><td><code>rowspan</code></td><td>Merge cells vertically</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 9. FORMS                                               -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s9">
+    <div class="section-label">Section 09 · Intermediate</div>
+    <h2>9. Forms &amp; Inputs</h2>
+    <div class="def">
+      <strong>Definition:</strong> HTML forms collect user input and send it to a server. The <code>&lt;form&gt;</code> element wraps all input controls. <code>action</code> sets where data is sent; <code>method</code> sets how (GET or POST).
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="kw">&lt;form</span> <span class="at">action</span>=<span class="st">"/submit"</span> <span class="at">method</span>=<span class="st">"POST"</span><span class="kw">&gt;</span>
+
+  <span class="cm">&lt;!-- Text input --&gt;</span>
+  <span class="kw">&lt;label</span> <span class="at">for</span>=<span class="st">"name"</span><span class="kw">&gt;</span><span class="val">Full Name:</span><span class="kw">&lt;/label&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"text"</span> <span class="at">id</span>=<span class="st">"name"</span> <span class="at">name</span>=<span class="st">"name"</span>
+         <span class="at">placeholder</span>=<span class="st">"Enter name"</span> <span class="at">required</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Email --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"email"</span> <span class="at">name</span>=<span class="st">"email"</span> <span class="at">placeholder</span>=<span class="st">"you@email.com"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Password --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"password"</span> <span class="at">name</span>=<span class="st">"pass"</span> <span class="at">minlength</span>=<span class="st">"8"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Number --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"number"</span> <span class="at">min</span>=<span class="st">"1"</span> <span class="at">max</span>=<span class="st">"100"</span> <span class="at">step</span>=<span class="st">"1"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Date / Time --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"date"</span> <span class="at">name</span>=<span class="st">"dob"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"time"</span> <span class="at">name</span>=<span class="st">"time"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Radio buttons --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"radio"</span> <span class="at">name</span>=<span class="st">"gender"</span> <span class="at">value</span>=<span class="st">"male"</span><span class="kw">/&gt;</span> Male
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"radio"</span> <span class="at">name</span>=<span class="st">"gender"</span> <span class="at">value</span>=<span class="st">"female"</span><span class="kw">/&gt;</span> Female
+
+  <span class="cm">&lt;!-- Checkbox --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"checkbox"</span> <span class="at">name</span>=<span class="st">"agree"</span> <span class="at">checked</span><span class="kw">/&gt;</span> I agree
+
+  <span class="cm">&lt;!-- Dropdown --&gt;</span>
+  <span class="kw">&lt;select</span> <span class="at">name</span>=<span class="st">"city"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;option</span> <span class="at">value</span>=<span class="st">""</span><span class="kw">&gt;</span><span class="val">-- Select City --</span><span class="kw">&lt;/option&gt;</span>
+    <span class="kw">&lt;option</span> <span class="at">value</span>=<span class="st">"bbsr"</span><span class="kw">&gt;</span><span class="val">Bhubaneswar</span><span class="kw">&lt;/option&gt;</span>
+    <span class="kw">&lt;option</span> <span class="at">value</span>=<span class="st">"del"</span><span class="kw">&gt;</span><span class="val">Delhi</span><span class="kw">&lt;/option&gt;</span>
+  <span class="kw">&lt;/select&gt;</span>
+
+  <span class="cm">&lt;!-- Textarea --&gt;</span>
+  <span class="kw">&lt;textarea</span> <span class="at">name</span>=<span class="st">"message"</span> <span class="at">rows</span>=<span class="st">"5"</span> <span class="at">cols</span>=<span class="st">"40"</span>
+            <span class="at">placeholder</span>=<span class="st">"Your message..."</span><span class="kw">&gt;&lt;/textarea&gt;</span>
+
+  <span class="cm">&lt;!-- File upload --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"file"</span> <span class="at">accept</span>=<span class="st">".jpg,.pdf"</span> <span class="at">multiple</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Range slider --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"range"</span> <span class="at">min</span>=<span class="st">"0"</span> <span class="at">max</span>=<span class="st">"100"</span> <span class="at">value</span>=<span class="st">"50"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Color picker --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"color"</span> <span class="at">value</span>=<span class="st">"#ff0000"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Hidden input --&gt;</span>
+  <span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"hidden"</span> <span class="at">name</span>=<span class="st">"token"</span> <span class="at">value</span>=<span class="st">"abc123"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Submit &amp; Reset --&gt;</span>
+  <span class="kw">&lt;button</span> <span class="at">type</span>=<span class="st">"submit"</span><span class="kw">&gt;</span><span class="val">Submit</span><span class="kw">&lt;/button&gt;</span>
+  <span class="kw">&lt;button</span> <span class="at">type</span>=<span class="st">"reset"</span><span class="kw">&gt;</span><span class="val">Clear</span><span class="kw">&lt;/button&gt;</span>
+
+<span class="kw">&lt;/form&gt;</span></pre>
+    </div>
+    <div class="tip">Always use <code>&lt;label for="id"&gt;</code> paired with input <code>id</code> — clicking the label focuses the field and improves accessibility.</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 10. SEMANTIC HTML5                                     -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s10">
+    <div class="section-label">Section 10 · Intermediate</div>
+    <h2>10. Semantic HTML5 Elements</h2>
+    <div class="def">
+      <strong>Definition:</strong> Semantic elements clearly describe their purpose to both the browser and the developer. They improve SEO, accessibility, and code readability. Use them instead of generic <code>&lt;div&gt;</code> tags wherever meaning can be expressed.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="kw">&lt;header&gt;</span>
+  <span class="kw">&lt;nav&gt;</span>
+    <span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"/"</span><span class="kw">&gt;</span><span class="val">Home</span><span class="kw">&lt;/a&gt;</span>
+    <span class="kw">&lt;a</span> <span class="at">href</span>=<span class="st">"/about"</span><span class="kw">&gt;</span><span class="val">About</span><span class="kw">&lt;/a&gt;</span>
+  <span class="kw">&lt;/nav&gt;</span>
+<span class="kw">&lt;/header&gt;</span>
+
+<span class="kw">&lt;main&gt;</span>
+  <span class="kw">&lt;article&gt;</span>
+    <span class="kw">&lt;h2&gt;</span><span class="val">Blog Post Title</span><span class="kw">&lt;/h2&gt;</span>
+    <span class="kw">&lt;section&gt;</span>
+      <span class="kw">&lt;p&gt;</span><span class="val">Introduction paragraph...</span><span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+    <span class="kw">&lt;section&gt;</span>
+      <span class="kw">&lt;p&gt;</span><span class="val">Body content...</span><span class="kw">&lt;/p&gt;</span>
+    <span class="kw">&lt;/section&gt;</span>
+  <span class="kw">&lt;/article&gt;</span>
+
+  <span class="kw">&lt;aside&gt;</span>
+    <span class="val">Related Links / Sidebar</span>
+  <span class="kw">&lt;/aside&gt;</span>
+<span class="kw">&lt;/main&gt;</span>
+
+<span class="kw">&lt;footer&gt;</span>
+  <span class="kw">&lt;p&gt;</span><span class="val">&amp;copy; 2024 My Website</span><span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/footer&gt;</span></pre>
+    </div>
+
+    <table>
+      <tr><th>Element</th><th>Definition</th></tr>
+      <tr><td><code>&lt;header&gt;</code></td><td>Top of page or section — logo, nav</td></tr>
+      <tr><td><code>&lt;nav&gt;</code></td><td>Navigation links block</td></tr>
+      <tr><td><code>&lt;main&gt;</code></td><td>Primary content — one per page</td></tr>
+      <tr><td><code>&lt;article&gt;</code></td><td>Self-contained content (blog post, card)</td></tr>
+      <tr><td><code>&lt;section&gt;</code></td><td>Thematic grouping with a heading</td></tr>
+      <tr><td><code>&lt;aside&gt;</code></td><td>Sidebar / supplementary content</td></tr>
+      <tr><td><code>&lt;footer&gt;</code></td><td>Bottom of page or section</td></tr>
+      <tr><td><code>&lt;figure&gt;</code></td><td>Image/media with optional caption</td></tr>
+      <tr><td><code>&lt;figcaption&gt;</code></td><td>Caption for a <code>&lt;figure&gt;</code></td></tr>
+      <tr><td><code>&lt;time&gt;</code></td><td>Dates/times with machine-readable <code>datetime</code></td></tr>
+      <tr><td><code>&lt;details&gt;</code></td><td>Expandable/collapsible disclosure widget</td></tr>
+      <tr><td><code>&lt;summary&gt;</code></td><td>Visible label for <code>&lt;details&gt;</code></td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 11. DIV & SPAN                                         -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s11">
+    <div class="section-label">Section 11 · Intermediate</div>
+    <h2>11. Div &amp; Span</h2>
+    <div class="def">
+      <strong><code>&lt;div&gt;</code>:</strong> A generic <em>block-level</em> container with no meaning — used for layout/grouping when no semantic tag fits.<br><br>
+      <strong><code>&lt;span&gt;</code>:</strong> A generic <em>inline</em> container — used to style or target a small piece of text/content inside a block.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- div: block level wrapper --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">class</span>=<span class="st">"card"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;h3&gt;</span><span class="val">Product Title</span><span class="kw">&lt;/h3&gt;</span>
+  <span class="kw">&lt;p&gt;</span><span class="val">Description here...</span><span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- span: inline wrapper --&gt;</span>
+<span class="kw">&lt;p&gt;</span><span class="val">Price: </span>
+  <span class="kw">&lt;span</span> <span class="at">style</span>=<span class="st">"color: green; font-weight: bold;"</span><span class="kw">&gt;</span>
+    <span class="val">₹499</span>
+  <span class="kw">&lt;/span&gt;</span>
+<span class="kw">&lt;/p&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 12. AUDIO & VIDEO                                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s12">
+    <div class="section-label">Section 12 · Intermediate</div>
+    <h2>12. Media – Audio &amp; Video</h2>
+    <div class="def">
+      <strong><code>&lt;audio&gt;</code>:</strong> Embeds sound content. Supports MP3, OGG, WAV.<br>
+      <strong><code>&lt;video&gt;</code>:</strong> Embeds video content. Supports MP4, WebM, OGG.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- Audio --&gt;</span>
+<span class="kw">&lt;audio</span> <span class="at">controls</span> <span class="at">autoplay</span> <span class="at">loop</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;source</span> <span class="at">src</span>=<span class="st">"audio.mp3"</span> <span class="at">type</span>=<span class="st">"audio/mpeg"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;source</span> <span class="at">src</span>=<span class="st">"audio.ogg"</span> <span class="at">type</span>=<span class="st">"audio/ogg"</span> <span class="kw">/&gt;</span>
+  <span class="val">Your browser does not support audio.</span>
+<span class="kw">&lt;/audio&gt;</span>
+
+<span class="cm">&lt;!-- Video --&gt;</span>
+<span class="kw">&lt;video</span> <span class="at">width</span>=<span class="st">"640"</span> <span class="at">height</span>=<span class="st">"360"</span>
+       <span class="at">controls</span> <span class="at">muted</span> <span class="at">poster</span>=<span class="st">"thumbnail.jpg"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;source</span> <span class="at">src</span>=<span class="st">"video.mp4"</span> <span class="at">type</span>=<span class="st">"video/mp4"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;source</span> <span class="at">src</span>=<span class="st">"video.webm"</span> <span class="at">type</span>=<span class="st">"video/webm"</span> <span class="kw">/&gt;</span>
+  <span class="val">Your browser does not support video.</span>
+<span class="kw">&lt;/video&gt;</span>
+
+<span class="cm">&lt;!-- YouTube embed via iframe --&gt;</span>
+<span class="kw">&lt;iframe</span> <span class="at">width</span>=<span class="st">"560"</span> <span class="at">height</span>=<span class="st">"315"</span>
+  <span class="at">src</span>=<span class="st">"https://www.youtube.com/embed/VIDEO_ID"</span>
+  <span class="at">allowfullscreen</span><span class="kw">&gt;&lt;/iframe&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 13. IFRAME                                             -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s13">
+    <div class="section-label">Section 13 · Intermediate</div>
+    <h2>13. iFrame</h2>
+    <div class="def">
+      <strong>Definition:</strong> <code>&lt;iframe&gt;</code> (Inline Frame) embeds another HTML document or external page inside the current page. Commonly used for maps, videos, and payment widgets.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- Google Maps embed --&gt;</span>
+<span class="kw">&lt;iframe</span>
+  <span class="at">src</span>=<span class="st">"https://maps.google.com/maps?q=Bhubaneswar&amp;output=embed"</span>
+  <span class="at">width</span>=<span class="st">"600"</span>
+  <span class="at">height</span>=<span class="st">"400"</span>
+  <span class="at">style</span>=<span class="st">"border:0"</span>
+  <span class="at">allowfullscreen</span>
+  <span class="at">loading</span>=<span class="st">"lazy"</span>
+  <span class="at">sandbox</span>=<span class="st">"allow-scripts allow-same-origin"</span>
+<span class="kw">&gt;&lt;/iframe&gt;</span></pre>
+    </div>
+    <div class="tip">Use the <code>sandbox</code> attribute to restrict iframe permissions and improve security.</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 14. GLOBAL ATTRIBUTES                                  -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s14">
+    <div class="section-label">Section 14 · Intermediate</div>
+    <h2>14. HTML Attributes (Global)</h2>
+    <div class="def">
+      <strong>Definition:</strong> Global attributes can be applied to <em>any</em> HTML element. They provide identity, styling hooks, behavior, and accessibility information.
+    </div>
+
+    <table>
+      <tr><th>Attribute</th><th>Definition &amp; Example</th></tr>
+      <tr><td><code>id</code></td><td>Unique identifier: <code>&lt;div id="hero"&gt;</code></td></tr>
+      <tr><td><code>class</code></td><td>CSS/JS hook, reusable: <code>&lt;p class="intro"&gt;</code></td></tr>
+      <tr><td><code>style</code></td><td>Inline CSS: <code>style="color:red"</code></td></tr>
+      <tr><td><code>title</code></td><td>Tooltip on hover: <code>title="More info"</code></td></tr>
+      <tr><td><code>lang</code></td><td>Language: <code>&lt;html lang="en"&gt;</code></td></tr>
+      <tr><td><code>hidden</code></td><td>Hides element: <code>&lt;p hidden&gt;</code></td></tr>
+      <tr><td><code>tabindex</code></td><td>Keyboard tab order: <code>tabindex="0"</code></td></tr>
+      <tr><td><code>contenteditable</code></td><td>Makes element editable: <code>contenteditable="true"</code></td></tr>
+      <tr><td><code>draggable</code></td><td>Drag-and-drop: <code>draggable="true"</code></td></tr>
+      <tr><td><code>spellcheck</code></td><td>Enable spellcheck: <code>spellcheck="true"</code></td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 15. META TAGS                                          -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s15">
+    <div class="section-label">Section 15 · Intermediate</div>
+    <h2>15. Meta Tags &amp; SEO</h2>
+    <div class="def">
+      <strong>Definition:</strong> <code>&lt;meta&gt;</code> tags provide metadata about the document to browsers, search engines, and social platforms. They live in <code>&lt;head&gt;</code> and are not displayed.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="kw">&lt;head&gt;</span>
+  <span class="cm">&lt;!-- Character encoding --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">charset</span>=<span class="st">"UTF-8"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Responsive viewport --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"viewport"</span> <span class="at">content</span>=<span class="st">"width=device-width, initial-scale=1.0"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- SEO basics --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"description"</span> <span class="at">content</span>=<span class="st">"Learn HTML from basic to advanced."</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"keywords"</span> <span class="at">content</span>=<span class="st">"HTML, web development, tutorial"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"author"</span> <span class="at">content</span>=<span class="st">"Your Name"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Open Graph (social preview) --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">property</span>=<span class="st">"og:title"</span> <span class="at">content</span>=<span class="st">"HTML Notes"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">property</span>=<span class="st">"og:description"</span> <span class="at">content</span>=<span class="st">"Complete HTML guide"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">property</span>=<span class="st">"og:image"</span> <span class="at">content</span>=<span class="st">"https://example.com/preview.jpg"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Twitter card --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"twitter:card"</span> <span class="at">content</span>=<span class="st">"summary_large_image"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Robots --&gt;</span>
+  <span class="kw">&lt;meta</span> <span class="at">name</span>=<span class="st">"robots"</span> <span class="at">content</span>=<span class="st">"index, follow"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Favicon --&gt;</span>
+  <span class="kw">&lt;link</span> <span class="at">rel</span>=<span class="st">"icon"</span> <span class="at">href</span>=<span class="st">"/favicon.ico"</span> <span class="at">type</span>=<span class="st">"image/x-icon"</span> <span class="kw">/&gt;</span>
+
+  <span class="cm">&lt;!-- Canonical URL --&gt;</span>
+  <span class="kw">&lt;link</span> <span class="at">rel</span>=<span class="st">"canonical"</span> <span class="at">href</span>=<span class="st">"https://example.com/html-notes"</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;/head&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 16. ENTITIES                                           -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s16">
+    <div class="section-label">Section 16 · Intermediate</div>
+    <h2>16. HTML Entities &amp; Symbols</h2>
+    <div class="def">
+      <strong>Definition:</strong> HTML entities are special codes used to display reserved characters or symbols that can't be typed directly. They begin with <code>&amp;</code> and end with <code>;</code>.
+    </div>
+
+    <table>
+      <tr><th>Entity Code</th><th>Symbol</th><th>Meaning</th></tr>
+      <tr><td><code>&amp;amp;</code></td><td>&amp;</td><td>Ampersand</td></tr>
+      <tr><td><code>&amp;lt;</code></td><td>&lt;</td><td>Less than</td></tr>
+      <tr><td><code>&amp;gt;</code></td><td>&gt;</td><td>Greater than</td></tr>
+      <tr><td><code>&amp;quot;</code></td><td>&quot;</td><td>Double quote</td></tr>
+      <tr><td><code>&amp;apos;</code></td><td>&apos;</td><td>Apostrophe</td></tr>
+      <tr><td><code>&amp;nbsp;</code></td><td>(space)</td><td>Non-breaking space</td></tr>
+      <tr><td><code>&amp;copy;</code></td><td>&copy;</td><td>Copyright</td></tr>
+      <tr><td><code>&amp;reg;</code></td><td>&reg;</td><td>Registered trademark</td></tr>
+      <tr><td><code>&amp;trade;</code></td><td>&trade;</td><td>Trademark</td></tr>
+      <tr><td><code>&amp;euro;</code></td><td>&euro;</td><td>Euro sign</td></tr>
+      <tr><td><code>&amp;#8377;</code></td><td>&#8377;</td><td>Indian Rupee</td></tr>
+      <tr><td><code>&amp;hearts;</code></td><td>&hearts;</td><td>Heart symbol</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 17. DATA ATTRIBUTES                                    -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s17">
+    <div class="section-label">Section 17 · Advanced</div>
+    <h2>17. Advanced: Data Attributes</h2>
+    <div class="def">
+      <strong>Definition:</strong> Custom <code>data-*</code> attributes let you embed extra information in HTML elements without using non-standard attributes. JavaScript can read them via <code>element.dataset</code>.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML + JS</span></div>
+      <pre><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="kw">&lt;button</span>
+  <span class="at">id</span>=<span class="st">"btn"</span>
+  <span class="at">data-product-id</span>=<span class="st">"42"</span>
+  <span class="at">data-price</span>=<span class="st">"499"</span>
+  <span class="at">data-category</span>=<span class="st">"electronics"</span>
+<span class="kw">&gt;</span><span class="val">Add to Cart</span><span class="kw">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- JavaScript reading data attributes --&gt;</span>
+<span class="kw">&lt;script&gt;</span>
+  <span class="val">const btn = document.getElementById('btn');
+  console.log(btn.dataset.productId);  // "42"
+  console.log(btn.dataset.price);      // "499"
+  console.log(btn.dataset.category);   // "electronics"
+
+  // You can also set them:
+  btn.dataset.inCart = "true";</span>
+<span class="kw">&lt;/script&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 18. ARIA & ACCESSIBILITY                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s18">
+    <div class="section-label">Section 18 · Advanced</div>
+    <h2>18. Advanced: Accessibility (ARIA)</h2>
+    <div class="def">
+      <strong>Definition:</strong> ARIA (Accessible Rich Internet Applications) attributes add accessibility information for screen readers and assistive technologies. Use semantic HTML first — ARIA fills the gaps.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML</span></div>
+      <pre><span class="cm">&lt;!-- Labeling a button with no visible text --&gt;</span>
+<span class="kw">&lt;button</span> <span class="at">aria-label</span>=<span class="st">"Close dialog"</span><span class="kw">&gt;</span><span class="val">✕</span><span class="kw">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- Describing an input --&gt;</span>
+<span class="kw">&lt;input</span> <span class="at">type</span>=<span class="st">"text"</span> <span class="at">aria-describedby</span>=<span class="st">"hint"</span> <span class="kw">/&gt;</span>
+<span class="kw">&lt;span</span> <span class="at">id</span>=<span class="st">"hint"</span><span class="kw">&gt;</span><span class="val">Enter at least 8 characters</span><span class="kw">&lt;/span&gt;</span>
+
+<span class="cm">&lt;!-- Role --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">role</span>=<span class="st">"alert"</span><span class="kw">&gt;</span><span class="val">Form submitted successfully!</span><span class="kw">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Expandable menu --&gt;</span>
+<span class="kw">&lt;button</span> <span class="at">aria-expanded</span>=<span class="st">"false"</span> <span class="at">aria-controls</span>=<span class="st">"menu"</span><span class="kw">&gt;</span><span class="val">Menu</span><span class="kw">&lt;/button&gt;</span>
+<span class="kw">&lt;ul</span> <span class="at">id</span>=<span class="st">"menu"</span> <span class="at">aria-hidden</span>=<span class="st">"true"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">Home</span><span class="kw">&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;</span><span class="val">About</span><span class="kw">&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Live region for dynamic updates --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">aria-live</span>=<span class="st">"polite"</span><span class="kw">&gt;</span><span class="val">Loading results...</span><span class="kw">&lt;/div&gt;</span></pre>
+    </div>
+
+    <table>
+      <tr><th>ARIA Attribute</th><th>Purpose</th></tr>
+      <tr><td><code>role</code></td><td>Defines element's purpose (button, alert, dialog, navigation)</td></tr>
+      <tr><td><code>aria-label</code></td><td>Accessible name for an element</td></tr>
+      <tr><td><code>aria-describedby</code></td><td>Points to element that describes this one</td></tr>
+      <tr><td><code>aria-hidden</code></td><td>Hides element from screen readers</td></tr>
+      <tr><td><code>aria-expanded</code></td><td>State of collapsible widget</td></tr>
+      <tr><td><code>aria-live</code></td><td>Announces dynamic content changes</td></tr>
+      <tr><td><code>aria-required</code></td><td>Marks form field as required</td></tr>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 19. CANVAS                                             -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s19">
+    <div class="section-label">Section 19 · Advanced</div>
+    <h2>19. Advanced: Canvas</h2>
+    <div class="def">
+      <strong>Definition:</strong> The <code>&lt;canvas&gt;</code> element provides a pixel-based drawing surface controlled entirely by JavaScript. Used for games, charts, image editing, and animations.
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">HTML + JS</span></div>
+      <pre><span class="kw">&lt;canvas</span> <span class="at">id</span>=<span class="st">"myCanvas"</span> <span class="at">width</span>=<span class="st">"400"</span> <span class="at">height</span>=<span class="st">"200"</span>
+        <span class="at">style</span>=<span class="st">"border: 1px solid #ccc;"</span><span class="kw">&gt;
+&lt;/canvas&gt;</span>
+
+<span class="kw">&lt;script&gt;</span>
+  <span class="val">const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Draw a filled rectangle
+  ctx.fillStyle = '#4caf50';
+  ctx.fillRect(20, 20, 150, 100);
+
+  // Draw a circle
+  ctx.beginPath();
+  ctx.arc(300, 100, 60, 0, Math.PI * 2);
+  ctx.fillStyle = '#2196f3';
+  ctx.fill();
+
+  // Draw text
+  ctx.font = '20px Arial';
+  ctx.fillStyle = '#fff';
+  ctx.fillText('Canvas!', 250, 108);
+
+  // Draw a line
+  ctx.beginPath();
+  ctx.moveTo(20, 180);
+  ctx.lineTo(380, 180);
+  ctx.strokeStyle = '#f44336';
+  ctx.lineWidth = 3;
+  ctx.stroke();</span>
+<span class="kw">&lt;/script&gt;</span></pre>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- 20. HTML APIs OVERVIEW                                 -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section id="s20">
+    <div class="section-label">Section 20 · Advanced</div>
+    <h2>20. Advanced: HTML APIs Overview</h2>
+    <p>HTML5 introduced many powerful browser APIs that work alongside HTML elements:</p>
+
+    <table>
+      <tr><th>API</th><th>HTML Element / JS</th><th>Use Case</th></tr>
+      <tr><td>Geolocation</td><td><code>navigator.geolocation</code></td><td>Get user's GPS coordinates</td></tr>
+      <tr><td>Local Storage</td><td><code>localStorage.setItem()</code></td><td>Store data in browser permanently</td></tr>
+      <tr><td>Session Storage</td><td><code>sessionStorage</code></td><td>Store data for current tab session</td></tr>
+      <tr><td>Drag &amp; Drop</td><td><code>draggable</code> + JS events</td><td>Native drag-and-drop UI</td></tr>
+      <tr><td>Web Workers</td><td><code>new Worker('file.js')</code></td><td>Run JS in background thread</td></tr>
+      <tr><td>WebSocket</td><td><code>new WebSocket(url)</code></td><td>Real-time 2-way communication</td></tr>
+      <tr><td>History API</td><td><code>history.pushState()</code></td><td>SPA routing without reload</td></tr>
+      <tr><td>Notification API</td><td><code>Notification.requestPermission()</code></td><td>Push browser notifications</td></tr>
+      <tr><td>Fullscreen API</td><td><code>el.requestFullscreen()</code></td><td>Make any element fullscreen</td></tr>
+      <tr><td>Clipboard API</td><td><code>navigator.clipboard.writeText()</code></td><td>Copy/paste programmatically</td></tr>
+      <tr><td>File API</td><td><code>&lt;input type="file"&gt;</code> + FileReader</td><td>Read local files in browser</td></tr>
+      <tr><td>Intersection Observer</td><td><code>new IntersectionObserver()</code></td><td>Lazy loading, scroll animations</td></tr>
+    </table>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">JS – Geolocation Example</span></div>
+      <pre><span class="val">navigator.geolocation.getCurrentPosition(
+  (position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    console.log(`Lat: ${lat}, Lon: ${lon}`);
+  },
+  (error) => console.error(error.message)
+);</span></pre>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-header"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-lang">JS – Local Storage Example</span></div>
+      <pre><span class="cm">// Save data</span>
+<span class="val">localStorage.setItem('username', 'Ravi');
+
+// Read data
+const name = localStorage.getItem('username');
+console.log(name); // "Ravi"
+
+// Remove
+localStorage.removeItem('username');
+
+// Clear all
+localStorage.clear();</span></pre>
+    </div>
+  </section>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p>HTML Complete Notes · Basic to Advanced &nbsp;|&nbsp; &copy; 2024 · Made with ❤️ for learners</p>
+  <p style="margin-top:6px; color:#484f58;">Cover all 20 sections and you're HTML-ready for the web.</p>
+</footer>
+
+</body>
+</html>
