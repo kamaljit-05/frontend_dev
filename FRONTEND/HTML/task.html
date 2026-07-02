@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Semantic HTML Practice</title>
+</head>
+<body>
+
+  <!-- HEADER: intro/branding content. Usually logo, site title, tagline -->
+  <header>
+    <h1>My Learning Blog</h1>
+    <p>Documenting my full stack journey</p>
+  </header>
+
+  <!-- NAV: holds the main navigation links of the site -->
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Articles</a>
+    <a href="#">About</a>
+  </nav>
+
+  <!-- MAIN: the one and only main content of the page. Only 1 <main> allowed per page -->
+  <main>
+
+    <!-- SECTION: groups related content together under one theme/heading.
+         It does NOT need to make sense if pulled out of this page on its own.
+         It's just an organizing block, like a chapter in a book. -->
+    <section>
+      <h2>Latest Posts</h2>
+
+      <!-- ARTICLE: self-contained content. If you copy this block and paste it
+           into another website, RSS feed, or newsletter, it would STILL make
+           full sense on its own, with no missing context.
+           Examples: blog post, news story, product card, forum comment -->
+      <article>
+        <h3>Understanding CSS Flexbox</h3>
+        <p>Flexbox helps align items inside a container easily...</p>
+      </article>
+
+      <article>
+        <h3>Getting Started with Node.js</h3>
+        <p>Node.js lets you run JavaScript on the server...</p>
+      </article>
+
+    </section>
+
+    <!-- Another SECTION example: "About" is just a themed chunk of this page,
+         it doesn't stand alone as distributable content like an article does -->
+    <section>
+      <h2>About This Repo</h2>
+      <p>I'm documenting frontend, backend, database, and deployment learning here.</p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER: closing info for the page (copyright, contact, links) -->
+  <footer>
+    <p>&copy; 2026 My Learning Blog</p>
+  </footer>
+
+  <!--
+    QUICK RULE TO REMEMBER article vs section:
+    - Can this content stand alone somewhere else and still make sense? -> use <article>
+    - Is this just grouping related stuff together under a heading?     -> use <section>
+  -->
+
+</body>
+</html>
